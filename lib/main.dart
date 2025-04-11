@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Importa provider
+import 'package:stack_app/screens/main_screen.dart';
 import 'screens/feed_screen.dart';
 import 'providers/theme_provider.dart'; // Importa tu ThemeProvider
 
@@ -128,7 +129,7 @@ class MyApp extends StatelessWidget {
          dividerColor: Colors.grey[850], // Color del divisor
       ),
       themeMode: themeProvider.themeMode, // <- Usa el modo del provider
-      home: const FeedScreen(),
+      home: const MainScreen(),
     );
   }
 }

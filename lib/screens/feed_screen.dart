@@ -18,7 +18,7 @@ class _FeedScreenState extends State<FeedScreen> {
   // 1. Añade una GlobalKey para el Scaffold
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int _selectedIndex = 0; // For BottomNavigationBar
+  // int _selectedIndex = 0; // For BottomNavigationBar
 
   // --- Sample Data ---
   final List<CardData> sampleCards = [
@@ -93,13 +93,13 @@ class _FeedScreenState extends State<FeedScreen> {
   }
  // --- End Sample Data ---
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      // Handle navigation logic here if needed
-      print("Tapped item: $index");
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //     // Handle navigation logic here if needed
+  //     print("Tapped item: $index");
+  //   });
+  // }
 
   void _deletePost(String postId) {
      setState(() {
@@ -234,7 +234,10 @@ class _FeedScreenState extends State<FeedScreen> {
                   child: Container(
                     // color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
                     // color: Theme.of(context).scaffoldBackgroundColor, // Color de fondo del Scaffold
-                    margin: const EdgeInsets.symmetric(vertical: 4), // Espacio entre posts
+                    // color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
+                    margin: const EdgeInsets.symmetric(vertical: 1.0), // Reduce el margen si usas color de fondo
+                    padding: const EdgeInsets.only(bottom: 8.0), // Padding interno inferior                    
+                    // margin: const EdgeInsets.symmetric(vertical: 4), // Espacio entre posts
                     child: Column(
                     
                       children: [
@@ -268,7 +271,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             onMenu: () => print("Menu for ${post.id}"),
                           ),
                         // El Divider usará el dividerColor del tema
-                        if (index < samplePosts.length -1) Divider(height: 1, thickness: 1, color: Theme.of(context).dividerColor),
+                        // if (index < samplePosts.length -1) Divider(height: 1, thickness: 1, color: Theme.of(context).dividerColor),
                       ],
                     ),
                   ),
@@ -279,7 +282,7 @@ class _FeedScreenState extends State<FeedScreen> {
           ),
             // Add some padding at the bottom of the scroll view so FAB doesn't overlap last item too much
           const SliverToBoxAdapter(
-            child: SizedBox(height: 80),
+            child: SizedBox(height: 20),
           )
         ],
       ),
@@ -299,14 +302,14 @@ class _FeedScreenState extends State<FeedScreen> {
 
 
       // 4. Barra de Menú Inferior Fija
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-      ),      
+      // bottomNavigationBar: CustomBottomNavigationBar(
+      //   selectedIndex: _selectedIndex,
+      //   onItemSelected: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //     });
+      //   },
+      // ),      
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const <BottomNavigationBarItem>[
       //     BottomNavigationBarItem(

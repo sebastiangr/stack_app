@@ -43,28 +43,36 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    // Usa el color de la BottomNavBar definido en el tema, o el del scaffold
+    final navBarBackgroundColor = theme.bottomNavigationBarTheme.backgroundColor ?? theme.scaffoldBackgroundColor;
+    // Color para el botón "+" (puede ser el primario del tema)
+    final addButtonColor = theme.colorScheme.primary;
     // Get the app's scaffold background color to match
     final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     
     return Container(
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor, // Match app background
+        // Opcional: Añadir sombra si se quiere separar visualmente
         // boxShadow: [
         //   BoxShadow(
-        //     color: Colors.black.withOpacity(0.1),
-        //     blurRadius: 4,
+        //     color: Colors.black.withOpacity(0.05),
+        //     blurRadius: 2,
         //     offset: const Offset(0, -1),
         //   ),
         // ],
       ),
-      height: 80,
+      // Ajusta la altura para incluir padding de safe area si es necesario
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+      height: 80 + MediaQuery.of(context).padding.bottom, // Altura base + safe area
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildNavItem(0, LucideIcons.house, 'Home'),
           _buildNavItem(1, LucideIcons.layoutGrid, 'Search'),
           // Center add button with special styling
-          _buildAddButton(),
+          _buildAddButton(addButtonColor),
           _buildNavItem(3, LucideIcons.messageSquare, 'Notifications'),
           _buildNavItem(4, LucideIcons.bell, 'Profile'),
         ],
@@ -72,34 +80,53 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
     );
   }
 
-  Widget _buildNavItem(int index, IconData icon, String label) {
-    final isSelected = widget.selectedIndex == index;
-    return InkWell(
-      onTap: () => widget.onItemSelected(index),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? 
-              Colors.orange : Colors.grey,
-            size: 30,
-          ),
-          const SizedBox(height: 4),
-          // Text(
-          //   label,
-          //   style: TextStyle(
-          //     color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-          //     fontSize: 12,
-          //     fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-          //   ),
-          // ),
-        ],
+  Widget _buildNavItem(int itemIndex, IconData icon, String label) {
+    final theme = Theme.of(context);
+    // El índice SELECCIONADO REAL viene de widget.selectedIndex
+    // Comparamos el índice VISUAL (itemIndex) con el índice SELECCIONADO LÓGICO
+    // Necesitamos mapear: 0->0, 1->1, 3->2, 4->3
+    int logicalIndex = itemIndex;
+    // if (itemIndex > 2) {
+    //   logicalIndex = itemIndex - 1; // Ajuste para saltar el botón '+'
+    // }
+    // final isSelected = widget.selectedIndex == index;
+    final isSelected = widget.selectedIndex == logicalIndex;
+
+    // Colores del tema para seleccionado/no seleccionado
+    final selectedColor = theme.bottomNavigationBarTheme.selectedItemColor ?? theme.colorScheme.primary;
+    final unselectedColor = theme.bottomNavigationBarTheme.unselectedItemColor ?? Colors.grey;    
+
+    return Expanded(
+      child: InkWell(
+        onTap: () => widget.onItemSelected(itemIndex),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? 
+                selectedColor  : unselectedColor,
+              size: 30,
+            ),
+            const SizedBox(height: 4),
+            // Text(
+            //   label,
+            //   style: TextStyle(
+            //     color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+            //     fontSize: 12,
+            //     fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildAddButton() {
+  Widget _buildAddButton(Color backgroundColor) {
     return GestureDetector(
       onTapDown: (_) {
         _animationController.forward();
@@ -120,11 +147,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
               width: 56,
               height: 56,
               decoration: BoxDecoration(
-                color: Colors.orange,
+                color: backgroundColor,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.orange.withOpacity(0.3),
+                    color: backgroundColor.withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
