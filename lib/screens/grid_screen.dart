@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 class GridScreen extends StatelessWidget {
-  const GridScreen({super.key});
+  const GridScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Implementar vista Grid de Cards
-    return Scaffold(
-      appBar: AppBar(title: const Text('Grid View')), // AppBar opcional
-      body: const Center(
-        child: Text('Grid Screen Placeholder'),
-      ),
+    // TODO: Implementar vista Grid de Cards real
+    return const Center(
+      child: Text('Grid Screen Placeholder'),
     );
   }
 }

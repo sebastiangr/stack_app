@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:stack_app/widgets/custom_drawer.dart';
 import 'feed_screen.dart'; // Tu pantalla Home original
 import 'grid_screen.dart';
 import 'new_post_screen.dart';
@@ -14,6 +16,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  // 1. Mueve la GlobalKey aquí
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // Índice de la pantalla VISIBLE en el IndexedStack (0 a 3)
   int _selectedIndex = 0;
 
@@ -60,20 +65,62 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // El AppBar se definirá dentro de cada pantalla (_screens[selectedIndex])
-      // si es necesario, o puedes tener uno aquí si es común a todas.
-      // appBar: AppBar(title: Text("App Title")), // AppBar común opcional
+      // 2. Asigna la key al Scaffold principal
+      key: _scaffoldKey,
 
-      // IndexedStack mantiene el estado de las pantallas
+      // 3. Define el AppBar aquí para que sea persistente
+      appBar: AppBar(
+        // El estilo (color, elevación) viene del tema global
+        // El leading ahora usa la _scaffoldKey de esta pantalla
+        leading: IconButton(
+          icon: const Icon(LucideIcons.menu),
+          tooltip: 'Abrir menú',
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+        ),
+        // Opcional: Título dinámico basado en la pantalla actual
+        // title: Text(_screenTitles[_selectedIndex]),
+        actions: [
+          IconButton(
+            icon: const Icon(LucideIcons.search),
+            onPressed: () {
+              print("Search tapped");
+              // Navegar a pantalla de búsqueda o mostrar overlay
+            },
+            tooltip: 'Buscar',
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
+              onTap: () {
+                 // El avatar también abre el drawer
+                 _scaffoldKey.currentState?.openDrawer();
+                 print("User Avatar tapped");
+              },
+              child: const CircleAvatar(
+                radius: 16.0,
+                backgroundImage: NetworkImage('https://picsum.photos/seed/user/100/100'),
+                backgroundColor: Colors.grey,
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      // 4. Define el Drawer aquí
+      drawer: const CustomDrawer(),
+
+      // El body cambia según el índice seleccionado
       body: IndexedStack(
         index: _selectedIndex,
         children: _screens,
       ),
 
-      // Tu barra de navegación personalizada
+      // La barra de navegación permanece aquí
       bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex, // Pasa el índice lógico
-        onItemSelected: _onItemTapped, // Pasa la función de callback
+        selectedIndex: _selectedIndex,
+        onItemSelected: _onItemTapped,
       ),
     );
   }

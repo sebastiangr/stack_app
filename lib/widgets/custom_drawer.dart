@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart'; // Usa Lucide Icons
+import 'package:stack_app/screens/settings_screen.dart';
 import '../providers/theme_provider.dart'; // Importa el ThemeProvider
 
 class CustomDrawer extends StatelessWidget {
@@ -55,7 +56,15 @@ class CustomDrawer extends StatelessWidget {
            _buildDrawerItem(
             icon: LucideIcons.settings,
             text: 'Configuración',
-            onTap: () => _navigateTo(context, 'Configuración'),
+            onTap: () {
+              Navigator.pop(context); // Cierra el drawer primero
+              // Navega a la pantalla de configuración
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+            // onTap: () => _navigateTo(context, 'Configuración'),
             iconColor: iconColor,
             textColor: textColor
           ),

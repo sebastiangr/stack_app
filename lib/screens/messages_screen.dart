@@ -5,12 +5,9 @@ class MessagesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Implementar lista de Mensajes
-    return Scaffold(
-       appBar: AppBar(title: const Text('Mensajes')), // AppBar opcional
-      body: const Center(
-        child: Text('Messages Screen Placeholder'),
-      ),
+    // TODO: Implementar vista Grid de Cards real
+    return const Center(
+      child: Text('Messages Screen Placeholder'),
     );
   }
 }
