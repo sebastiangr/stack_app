@@ -3,6 +3,7 @@
 *.log
 *.pyc
 *.swp
+*.txt
 .DS_Store
 .atom/
 .build/
@@ -11,6 +12,7 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+.env
 
 # IntelliJ related
 *.iml
@@ -43,4 +45,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-.qodo
+

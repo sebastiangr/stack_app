@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../models/card_data.dart';
 
 class HorizontalCardItem extends StatelessWidget {
@@ -9,8 +10,8 @@ class HorizontalCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    // Adjust card width based on screen size, showing roughly 1.5 cards
-    final cardWidth = screenWidth * 0.65;
+    // Adjust card width based on screen size, showing roughly 2.25 cards
+    final cardWidth = screenWidth * 0.43;
 
     return Container(
       width: cardWidth,
@@ -128,9 +129,17 @@ class HorizontalCardItem extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.bookmark_border, color: Colors.white.withOpacity(0.8), size: 20.0),
+                          Icon(
+                            LucideIcons.bookmark, 
+                            color: Colors.white.withOpacity(0.8), 
+                            size: 20.0
+                          ),
                           const SizedBox(width: 8.0),
-                          Icon(Icons.more_horiz, color: Colors.white.withOpacity(0.8), size: 20.0),
+                          Icon(
+                            LucideIcons.ellipsis, 
+                            color: Colors.white.withOpacity(0.8), 
+                            size: 20.0
+                          ),
                         ],
                       ),
                     ],
