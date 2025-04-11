@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:stack_app/widgets/botton_navigation.dart';
+import 'package:stack_app/widgets/bottom_navigation.dart';
 import 'package:stack_app/widgets/custom_drawer.dart';
 import '../models/card_data.dart';
 import '../models/post_data.dart';
