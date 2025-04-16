@@ -43,6 +43,15 @@ class _FeedScreenState extends State<FeedScreen> {
       status: 'Nuevo',
        backgroundColor: Colors.teal.shade800,
     ),
+    CardData(
+      id: '4',
+      imageUrl: 'https://picsum.photos/seed/tech/300/200',
+      category: 'Technology Weekly',
+      title: 'The Rise of AI in Everyday Apps',
+      status: 'Nuevo',
+      backgroundColor: Colors.teal.shade800,
+    ),
+
   ];
 
   // Use late initialization for posts list to manage state
@@ -138,7 +147,7 @@ class _FeedScreenState extends State<FeedScreen> {
         // 2. Horizontal Card List
         SliverToBoxAdapter(
           child: Container(
-            height: 240.0, // Adjust height as needed for cards
+            height: 320.0, // Adjust height as needed for cards
             padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 20.0),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
