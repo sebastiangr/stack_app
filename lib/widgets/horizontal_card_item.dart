@@ -86,8 +86,8 @@ class HorizontalCardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, // Pushes icons to bottom
                 children: [
                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     mainAxisSize: MainAxisSize.min, // Prevent column taking all space
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min, // Prevent column taking all space
                     children: [
                       Text(
                         cardData.category,
@@ -127,18 +127,30 @@ class HorizontalCardItem extends StatelessWidget {
                       ),
                       // Icons Row
                       Row(
-                        mainAxisSize: MainAxisSize.min,
+                        // mainAxisSize: MainAxisSize.min,
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(
-                            LucideIcons.bookmark, 
-                            color: Colors.white.withOpacity(0.8), 
-                            size: 20.0
+                          IconButton(
+                            padding: EdgeInsets.all(0),
+                            icon: Icon(
+                              LucideIcons.bookmark, 
+                              color: Colors.white.withOpacity(0.8), 
+                              size: 18.0
+                            ),
+                            onPressed: () {
+                              print('Bookmark button pressed in HorizontalCardItem');
+                            },
                           ),
-                          const SizedBox(width: 8.0),
-                          Icon(
-                            LucideIcons.ellipsis, 
-                            color: Colors.white.withOpacity(0.8), 
-                            size: 20.0
+                          // const SizedBox(width: 8.0),
+                          IconButton(
+                            icon: Icon(
+                              LucideIcons.ellipsis, 
+                              color: Colors.white.withOpacity(0.8), 
+                              size: 20.0
+                            ),
+                            onPressed: () {
+                              print('Ellipsis button pressed in HorizontalCardItem');
+                            },
                           ),
                         ],
                       ),
